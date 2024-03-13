@@ -1,0 +1,17 @@
+.scrollable-card {
+    max-height: 600px; 
+    width: 410px;
+    overflow-y: auto; 
+}
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer p {
+    margin-bottom: 0;
+}

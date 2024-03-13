@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="songList"></ul>
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('load', () => {
+            d3.json('data.json').then((data) => {
+                data.forEach((song) => {
+                    var listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <h2>${song.name}</h2>
+                        <p>Album: ${song.album.name}</p>
+                        <p>Artist: ${song.artists[0].name}</p>
+                        <p>G: ${song.album.tracks[0].name}</p>
+                        <p>P: ${song.popularity}</p>
+
+
+                    `;
+                    document.getElementById('songList').appendChild(listItem);
+                });
+            });
+        });
+
+        function msToMinutesAndSeconds(ms) {
+            var minutes = Math.floor(ms / 60000);
+            var seconds = ((ms % 60000) / 1000).toFixed(0);
+            return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+        }
+    </script>
+</body>
+</html>
