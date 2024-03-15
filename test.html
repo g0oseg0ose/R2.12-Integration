@@ -3,40 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bar Chart Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div>
-    <canvas id="myChart"></canvas>
+  <div>
+    <canvas id="year"></canvas>
   </div>
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <script>
-    const ctx = document.getElementById('myChart');
-  
-    new Chart(ctx, {
-      type: 'polarArea',
-      data: {
-        labels: ['4', '3', '2', '1'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  </script>
+window.addEventListener('load', () => {
+    fetch('data.json')
+        .then(response => response.json())
+        .then((data) => {
+            var date = [0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0,0,0,0,0,0]; // Initialize the array to store counts for each year
 
+            data.forEach((song) => {
+                const releaseDate = new Date(song.album.release_date);
+                const year = releaseDate.getFullYear();
+                // Increment the count for the corresponding year in the date array
+                if (year >= 1995 && year <= 2024) {
+                    date[year - 1995]++; // Adjust the index based on the range of years
+                }
+            });
+
+            const ctxYear = document.getElementById('year');
+            new Chart(ctxYear, {
+                type: 'bar',
+                data: {
+                    labels: ['1995', '1996', '1997', '1998', '1999', '2000','2001', '2002', '2003', '2004', '2005', '2006', '2007','2009', '2010', '2011', '2012', '2013', '2014', '2015','2016', '2017', '2018', '2019', '2020', '2021', '2022','2023', '2024'], // Assuming data for these years
+                    datasets: [{
+                        label: 'Nb of releases',
+                        data: date,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+});
+
+
+  </script>
 </body>
 </html>
-
-
-  
-  

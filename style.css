@@ -1,6 +1,12 @@
-.scrollable-card {
-    max-height: 600px; 
-    width: 410px;
+#track{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.card {
+    width: 40%;
+    margin: 2%;
     overflow-y: auto; 
 }
 .footer {

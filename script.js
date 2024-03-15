@@ -1,5 +1,7 @@
 window.addEventListener('load', () => {
-    d3.json('data.json').then((data) => {
+    fetch('data.json')
+    .then(response => response.json())
+        .then((data) => {
         data.forEach((song) => {
             var card = document.createElement('div');
             card.classList.add('card', 'mb-3');

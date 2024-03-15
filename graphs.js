@@ -1,30 +1,86 @@
 window.addEventListener('load', () => {
-    d3.json('data.json').then((data) => {
-        data.forEach((song) => {
-            var popularityCategory4 = [];
-            var popularityCategory3 = [];
-            var popularityCategory2 = [];
-            var popularityCategory1 = [];
+  fetch('data.json')
+      .then(response => response.json())
+      .then((data) => {
+          var dataPop = [0, 0, 0, 0];
+          data.forEach((song) => {
+              const popularity = song.popularity;
+              if (popularity >= 0 && popularity < 25) {
+                  dataPop[0]++;
+              } else if (popularity >= 25 && popularity < 50) {
+                  dataPop[1]++;
+              } else if (popularity >= 50 && popularity < 75) {
+                  dataPop[2]++;
+              } else if (popularity >= 75 && popularity <= 100) {
+                  dataPop[3]++;
+              }
 
-            for (let i = 0; i < songs.length; i++) {
-                const popularity = songs[i].popularity;
-                if (popularity >= 0 && popularity < 25) {
-                    popularityCategory4.push(songs[i]);
-                } else if (popularity >= 25 && popularity < 50) {
-                    popularityCategory3.push(songs[i]);
-                } else if (popularity >= 50 && popularity < 75) {
-                    popularityCategory2.push(songs[i]);
-                } else if (popularity >= 75 && popularity <= 100) {
-                    popularityCategory1.push(songs[i]);
-                }
-            }
-        });
-    });
+          });
+
+          const ctxPopularity = document.getElementById('Popularity');
+          new Chart(ctxPopularity, {
+              type: 'polarArea',
+              data: {
+                  labels: ['0-25', '25-50', '50-75', '75-100'],
+                  datasets: [{
+                      label: 'Number of Songs',
+                      data: dataPop,
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      y: {
+                          beginAtZero: true
+                      }
+                  }
+              }
+          });
+      });
+});
+
+window.addEventListener('load', () => {
+  fetch('data.json')
+      .then(response => response.json())
+      .then((data) => {
+          var date = [0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0,0,0,0,0,0]; // Initialize the array to store counts for each year
+
+          data.forEach((song) => {
+              const releaseDate = new Date(song.album.release_date);
+              const year = releaseDate.getFullYear();
+              // Increment the count for the corresponding year in the date array
+              if (year >= 1995 && year <= 2024) {
+                  date[year - 1995]++; // Adjust the index based on the range of years
+              }
+          });
+
+          const ctxYear = document.getElementById('year');
+          new Chart(ctxYear, {
+              type: 'bar',
+              data: {
+                  labels: ['1995', '1996', '1997', '1998', '1999', '2000','2001', '2002', '2003', '2004', '2005', '2006', '2007','2009', '2010', '2011', '2012', '2013', '2014', '2015','2016', '2017', '2018', '2019', '2020', '2021', '2022','2023', '2024'], // Assuming data for these years
+                  datasets: [{
+                      label: 'Nb of releases',
+                      data: date,
+                      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                      borderColor: 'rgba(75, 192, 192, 1)',
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      y: {
+                          beginAtZero: true
+                      }
+                  }
+              }
+          });
+      });
 });
 
 const config = {
-    type: 'polarArea',
-    data: {},
-    options: {},
-    plugins: []
-  }
+  type: 'polarArea',
+  data: {},
+  options: {},
+  plugins: []
+};
