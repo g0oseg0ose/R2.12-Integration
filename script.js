@@ -1,107 +1,45 @@
-window.addEventListener('load', () => {
-    fetch('data.json')
-    .then(response => response.json())
-        .then((data) => {
-        data.forEach((song) => {
-            var card = document.createElement('div');
-            card.classList.add('card', 'mb-3');
+// Fetch data from data.json
+fetch('data.json')
+    .then(response => response.json()) // Convert response to JSON
+    .then(data => {
+        // Call function to set track list
+        setTrackList(data);
+    })
+    .catch(error => console.error('Error fetching data:', error));
 
-            var row = document.createElement('div');
-            row.classList.add('row', 'g-0');
-            card.appendChild(row);
+// Function to set track list
+function setTrackList(data) {
+    // Get the template for the track card
+    let template = document.getElementById('trackCard');
 
-            var imageCol = document.createElement('div');
-            imageCol.classList.add('col-md-4', 'd-flex', 'justify-content-center', 'align-items-center');
-            var image = document.createElement('img');
-            image.src = song.album.images[0].url; // Assuming the first image is used
-            image.classList.add('img-fluid', 'rounded-start');
-            image.alt = 'album-display';
-            imageCol.appendChild(image);
-            row.appendChild(imageCol);
+    // Loop through the songs data
+    data.forEach(song => {
+        // Clone the template
+        const clone = template.content.cloneNode(true);
 
-            var infoCol = document.createElement('div');
-            infoCol.classList.add('col-md-8');
-            var cardBody = document.createElement('div');
-            cardBody.classList.add('card-body');
-            infoCol.appendChild(cardBody);
+        // Get the artists' names in a string
+        let artists = getDisplayArtists(song.artists);
 
-            var title = document.createElement('h5');
-            title.classList.add('card-title');
-            title.textContent = song.name;
-            cardBody.appendChild(title);
+        // Fill in the clone with song details
+        clone.querySelector('.card-title').textContent = song.name;
+        clone.querySelector('.artist').textContent ='Artist: ' + song.artists[0].name;
+        clone.querySelector('.album').textContent = 'Album: ' + song.album.name;
+        clone.querySelector('.tps').textContent = 'Duration: ' + msToMinutesAndSeconds(song.duration_ms);
+        clone.querySelector('.genre').textContent = 'Genre: ' + song.artists[0].genres;
+        clone.querySelector('.card-img-top').src = song.album.images[0].url;
 
-            var infoList = document.createElement('ul');
-            infoList.classList.add('list-group', 'list-group-flush');
-
-            var artistItem = document.createElement('li');
-            artistItem.classList.add('list-group-item');
-            artistItem.textContent = 'Artist: ' + song.artists[0].name;
-            infoList.appendChild(artistItem);
-
-            var albumItem = document.createElement('li');
-            albumItem.classList.add('list-group-item');
-            albumItem.textContent = 'Album: ' + song.album.name;
-            infoList.appendChild(albumItem);
-
-            var durationItem = document.createElement('li');
-            durationItem.classList.add('list-group-item');
-            durationItem.textContent = 'Duration: ' + msToMinutesAndSeconds(song.duration_ms);
-            infoList.appendChild(durationItem);
-
-            var albumGenre = document.createElement('li');
-            albumGenre.classList.add('list-group-item');
-            albumGenre.textContent = 'Genre: ' + song.artists[0].genres;
-            infoList.appendChild(albumGenre);
-
-            card.addEventListener('click', () => {
-                var title = document.createElement('h5');
-                title.classList.add('card-title');
-                title.textContent = song.name;
-
-                var audio = document.createElement('audio');
-                audio.setAttribute('controls', '');
-                var source = document.createElement('source');
-                source.setAttribute('src', song.preview_url);
-                source.setAttribute('type', 'audio/mpeg');
-                audio.appendChild(source);
-
-                // Clear the existing content in listenSong
-                document.getElementById('listenSong').innerHTML = '';
-                document.getElementById('listenSong').appendChild(title);
-                document.getElementById('listenSong').appendChild(audio);
-            });
-
-            card.addEventListener('click', () => {   
-                var title = document.createElement('h5');
-                title.classList.add('card-title');
-                title.textContent = "From the album";
-                cardBody.appendChild(title);
-
-                var firstThreeTracks = "";
-                for (let i = 0; i < 3; i++) {
-                    firstThreeTracks += song.album.tracks[i].name + ", ";
-                }
-                // Remove the trailing comma and space
-                firstThreeTracks = firstThreeTracks.slice(0, -2);
-            
-                var otherTracks = document.createElement('h6');
-                otherTracks.textContent = firstThreeTracks;
-
-                document.getElementById('album').innerHTML = '';
-                document.getElementById('album').appendChild(title);
-                document.getElementById('album').appendChild(otherTracks);
-            });
-
-            cardBody.appendChild(infoList);
-            row.appendChild(infoCol);
-
-            document.getElementById('songList').appendChild(card);
-        });
+        // Append the clone to the trackList container
+        document.getElementById('trackList').appendChild(clone);
     });
-});
+}
 
+// Function to get a formatted string of artists' names
+function getDisplayArtists(artists) {
+    return artists.map(artist => artist.name).join(', ');
+}
 function msToMinutesAndSeconds(ms) {
     var minutes = Math.floor(ms / 60000);
     var seconds = ((ms % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
+

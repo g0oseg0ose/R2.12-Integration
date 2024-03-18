@@ -12,26 +12,32 @@
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Spotify Eco+</a>
     </nav>
 
-    <div id="track">
-        <div id="songList"></div>
-        <div id="listenSong"></div>
-        <br>
-        <div id="album"></div>
-    </div>
+    <div id="trackList"></div>
 
-    <div id="about" class="container">
-        <div class="row justify-content-center">
-            <div class="col-auto d-flex justify-content-center align-items-center">
-                <div class="card">
-                    <canvas id="Popularity"></canvas>
+    <template id="trackCard">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                    <img class="img-fluid rounded-start card-img-top" alt="album-display">
                 </div>
-            </div>
-            <div class="col-auto d-flex justify-content-center align-items-center">
-                <div class="card">
-                    <canvas id="year"></canvas>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item artist"></li>
+                            <li class="list-group-item album"></li>
+                            <li class="list-group-item tps"></li>
+                            <li class="list-group-item genre"></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    </template>
+
+    <div id="about" class="container">
+        <canvas id="Popularity"></canvas>
+        <canvas id="year"></canvas>
     </div>
 
 <footer class="footer">
