@@ -28,10 +28,43 @@ function setTrackList(data) {
         clone.querySelector('.genre').textContent = 'Genre: ' + song.artists[0].genres;
         clone.querySelector('.card-img-top').src = song.album.images[0].url;
 
+        // Add event listener to the card
+        clone.querySelector('.card').addEventListener('click', function() {
+            // Call showInfo function when the card is clicked
+            showInfo(song);
+        });
+
         // Append the clone to the trackList container
         document.getElementById('trackList').appendChild(clone);
     });
 }
+
+// Function to show song info
+function showInfo(song) {
+    // Clear the contents of infoshow div
+    document.getElementById('infoshow').innerHTML = '';
+
+    // Get the template for info
+    let template = document.getElementById('info');
+
+    // Clone the template
+    const clone = template.content.cloneNode(true);
+
+    // Fill in the clone with song details
+    var firstThreeTracks = "";
+    for (let i = 0; i < 3; i++) {
+        firstThreeTracks += song.album.tracks[i].name + ", ";
+    }
+    // Remove the trailing comma and space
+    firstThreeTracks = firstThreeTracks.slice(0, -2);
+
+    clone.querySelector('.music').src = song.preview_url;
+    clone.querySelector('.otherTracks').textContent = firstThreeTracks;
+
+    // Append the clone to the infoshow div
+    document.getElementById('infoshow').appendChild(clone);
+}
+
 
 // Function to get a formatted string of artists' names
 function getDisplayArtists(artists) {

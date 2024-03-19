@@ -12,10 +12,28 @@
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Spotify Eco+</a>
     </nav>
 
-    <div id="trackList"></div>
+
+    <section>
+        <div class="container py-5">
+            <div class="row justify-content-center align-items-center">
+                <!-- Div à gauche -->
+                <div class="col-md-6 overflow-hidden">
+                    <div class="overflow-auto">
+                        <div id="trackList"></div>
+                    </div>
+                </div>
+                <!-- Divs à droite -->
+                <div class="col-md-4">
+                    <div class="bg-secondary text-light rounded mb-3 overflow-hidden" style="height: 300px;">
+                        <div id="infoshow"></div>
+                    </div>                   
+                </div>
+            </div>
+        </div>
+    </section>
 
     <template id="trackCard">
-        <div class="card mb-3">
+        <div class="card mb-3" id="card">
             <div class="row g-0">
                 <div class="col-md-4 d-flex justify-content-center align-items-center">
                     <img class="img-fluid rounded-start card-img-top" alt="album-display">
@@ -32,6 +50,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </template>
+    <template id="info">
+        <div class="card mb-3 d-flex justify-content-center align-items-center" id="info">
+            <audio class="music" controls></audio>
+            <br>
+            <h5 class="other card-title">From the album:</h5>
+            <h6 class="otherTracks"></h6>
         </div>
     </template>
 

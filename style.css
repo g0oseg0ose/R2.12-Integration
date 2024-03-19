@@ -3,12 +3,10 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    width: 550px;
+    height: 700px;
 }
-.card {
-    width: 30%;
-    margin: 2%;         
 
-}
 .footer {
     background-color: #333;
     color: #fff;
@@ -17,7 +15,24 @@
     bottom: 0;
     width: 100%;
 }
+    .card {
+        width: 500px;  
+        height: 75px;       
+    }
+    #card:hover{
+        z-index: 1000;
+        transform: scale(1.05);
+        height: auto;   
 
-.footer p {
-    margin-bottom: 0;
-}
+    }
+    .more{
+        display: none;
+    }
+    .card:hover .more{
+        display: inline;
+    }
+    #info{
+        width: 400px;  
+        height: 270px;  
+        margin: 2%;
+    }
