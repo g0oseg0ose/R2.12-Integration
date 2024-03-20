@@ -25,6 +25,8 @@ window.addEventListener('load', () => {
                   datasets: [{
                       label: 'Number of Songs',
                       data: dataPop,
+                      backgroundColor: 'rgba(30, 215, 96, 0.2)',
+                      borderColor: 'rgba(30, 215, 96,1)',
                       borderWidth: 1
                   }]
               },
@@ -60,10 +62,10 @@ window.addEventListener('load', () => {
               data: {
                   labels: ['1995', '1996', '1997', '1998', '1999', '2000','2001', '2002', '2003', '2004', '2005', '2006', '2007','2009', '2010', '2011', '2012', '2013', '2014', '2015','2016', '2017', '2018', '2019', '2020', '2021', '2022','2023', '2024'], // Assuming data for these years
                   datasets: [{
-                      label: 'Nb of releases',
+                      label: 'Number of song released that year',
                       data: date,
-                      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                      borderColor: 'rgba(75, 192, 192, 1)',
+                      backgroundColor: 'rgba(30, 215, 96, 0.2)',
+                      borderColor: 'rgba(30, 215, 96,1)',
                       borderWidth: 1
                   }]
               },

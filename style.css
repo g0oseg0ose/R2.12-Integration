@@ -3,22 +3,16 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    width: 550px;
-    height: 700px;
 }
 
 .footer {
-    background-color: #333;
+    background-color: #212121;
     color: #fff;
     padding: 20px 0;
     position: relative;
     bottom: 0;
     width: 100%;
 }
-    .card {
-        width: 500px;  
-        height: 75px;       
-    }
     #card:hover{
         z-index: 1000;
         transform: scale(1.05);
@@ -31,8 +25,8 @@
     .card:hover .more{
         display: inline;
     }
-    #info{
-        width: 400px;  
-        height: 270px;  
-        margin: 2%;
+    .row{
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 2%;
     }

@@ -52,11 +52,15 @@ function showInfo(song) {
 
     // Fill in the clone with song details
     var firstThreeTracks = "";
-    for (let i = 0; i < 3; i++) {
-        firstThreeTracks += song.album.tracks[i].name + ", ";
+    if (song.album.tracks.length > 0) {
+        for (let i = 0; i < Math.min(song.album.tracks.length, 3); i++) {
+            firstThreeTracks += song.album.tracks[i].name + ", ";
+        }
+        // Remove the trailing comma and space
+        firstThreeTracks = firstThreeTracks.slice(0, -2);
+    } else {
+        firstThreeTracks = " ";
     }
-    // Remove the trailing comma and space
-    firstThreeTracks = firstThreeTracks.slice(0, -2);
 
     clone.querySelector('.music').src = song.preview_url;
     clone.querySelector('.otherTracks').textContent = firstThreeTracks;
