@@ -1,32 +1,26 @@
 #trackList{
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
 }
-
 .footer {
     background-color: #212121;
     color: #fff;
     padding: 20px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
 }
-    #card:hover{
-        z-index: 1000;
-        transform: scale(1.05);
-        height: auto;   
-
-    }
-    .more{
+#card:hover{
+    z-index: 1000;
+    transform: scale(1.05);
+    height: auto;
+    cursor: pointer;   
+}
+.music{
+    width: 575px;
+}
+@media(min-width:400px) and (max-width:1000px){
+    #cover{
         display: none;
     }
-    .card:hover .more{
-        display: inline;
+    .music{
+        width:350px;
     }
-    .row{
-        margin-left: 10%;
-        margin-right: 10%;
-        margin-top: 2%;
-    }
+}

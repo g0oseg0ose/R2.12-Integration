@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
 
           const ctxPopularity = document.getElementById('Popularity');
           new Chart(ctxPopularity, {
-              type: 'polarArea',
+              type: 'pie',
               data: {
                   labels: ['0-25', '25-50', '50-75', '75-100'],
                   datasets: [{
@@ -29,13 +29,6 @@ window.addEventListener('load', () => {
                       borderColor: 'rgba(30, 215, 96,1)',
                       borderWidth: 1
                   }]
-              },
-              options: {
-                  scales: {
-                      y: {
-                          beginAtZero: true
-                      }
-                  }
               }
           });
       });

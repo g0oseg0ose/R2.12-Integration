@@ -21,11 +21,6 @@ function setTrackList(data) {
         let artists = getDisplayArtists(song.artists);
 
         // Fill in the clone with song details
-        clone.querySelector('.card-title').textContent = song.name;
-        clone.querySelector('.artist').textContent ='Artist: ' + song.artists[0].name;
-        clone.querySelector('.album').textContent = 'Album: ' + song.album.name;
-        clone.querySelector('.tps').textContent = 'Duration: ' + msToMinutesAndSeconds(song.duration_ms);
-        clone.querySelector('.genre').textContent = 'Genre: ' + song.artists[0].genres;
         clone.querySelector('.card-img-top').src = song.album.images[0].url;
 
         // Add event listener to the card
@@ -41,8 +36,20 @@ function setTrackList(data) {
 
 // Function to show song info
 function showInfo(song) {
+    // Get the infoshow div
+    const infoshow = document.getElementById('infoshow');
+
+    // Toggle infoshow div's display
+    if (infoshow.style.display === 'none') {
+        // If currently hidden, display it
+        infoshow.style.display = 'block';
+    } else {
+        // If currently displayed, hide it
+        infoshow.style.display = 'none';
+    }
+
     // Clear the contents of infoshow div
-    document.getElementById('infoshow').innerHTML = '';
+    infoshow.innerHTML = '';
 
     // Get the template for info
     let template = document.getElementById('info');
@@ -61,12 +68,16 @@ function showInfo(song) {
     } else {
         firstThreeTracks = " ";
     }
-
+    clone.querySelector('.cover').src = song.album.images[0].url;
+    clone.querySelector('.card-title').textContent = song.name;
+    clone.querySelector('.artist').textContent = 'Artist: ' + song.artists[0].name;
+    clone.querySelector('.album').textContent = 'Album: ' + song.album.name;
+    clone.querySelector('.genre').textContent = 'Genre: ' + song.artists[0].genres;
     clone.querySelector('.music').src = song.preview_url;
     clone.querySelector('.otherTracks').textContent = firstThreeTracks;
 
     // Append the clone to the infoshow div
-    document.getElementById('infoshow').appendChild(clone);
+    infoshow.appendChild(clone);
 }
 
 
@@ -80,3 +91,6 @@ function msToMinutesAndSeconds(ms) {
     return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
+function OpenLink() {
+    window.location.href = "https://github.com/g0oseg0ose/R2.12-Integration";
+}

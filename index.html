@@ -3,97 +3,104 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rewind</title>
+    <title>R2.12 Integration</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/vnd.icon" href="https://pbs.twimg.com/profile_images/1505901815619104770/aSynWzvz_400x400.jpg">
 </head>
 <body style="background-color: #333;">
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3" >
-        <div class="container">
-          <a class="navbar-brand">Shall we rewind ?</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="https://open.spotify.com/playlist/4GT3T9xdCgKidNmPAY5RgQ?si=5168b0a84b764db7"> My Spotify Playlist</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-    <section>
-            <div class="row">
-                <div class="col-md-5 overflow-hidden">
-                    <div class=" rounded mb-3 overflow-auto">
-                        <div id="trackList"></div>
-                    </div>
-                </div>
-                <!-- Divs à droite -->
-                <div class="col-md-7 ">
-                    <div class="row g-0">
-                         <div id="infoshow" class="d-flex justify-content-center"></div>
-                    </div>
-                    <div class="row">
-                        <div class="bg-dark rounded mb-3 overflow-hidden" class="d-flex justify-content-center">
-                            <canvas id="Popularity"></canvas>
-                        </div>
-                    </div>                    
-                </div>
+    <nav class=" container-fluid bg-dark sticky-top py-4 rounded-3">
+        <div id="infoshow"></div>
+    </nav> 
+     
+    <main>
+       <div class="p-5 mb-4 bg-dark text-light">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Welcome to the Library</h1>
+                <p class="col-md-8 fs-4">
+                    Take a look around but do not get lost. I will not help you find your way out of the music &#128378;.
+                </p>
+                <button class="btn btn-light btn-lg" type="button" onclick="OpenLink()">
+                    Uploaded on Github 
+                </button>
             </div>
-    </section>
+        </div>
+    </main>
     
-    <section>
-        <div class="col-md-12 rounded mb-3 overflow-hidden text-center">
-            <div class="row">
-                <div class="bg-dark rounded overflow-hidden" class="d-flex justify-content-center">
+    <section class="library">
+        <div class="row">
+            <div id="trackList" class="d-flex align-items-center justify-content-center"></div>
+        </div> 
+        <br>   
+    </section>
+
+    <div class="p-5 mb-4 bg-dark text-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Let's take a look at some data &#128269;</h1>
+        </div>
+    </div>
+    
+
+    <section class="data">
+        <div class="row d-flex justify-content-center m-3">
+            <div class="col-md-5">
+                <div class="container-fluid bg-dark rounded py-4">
+                        <h3 class="text-light">What is the popularity ?</h3>
+                        <br>
+                        <canvas id="Popularity"></canvas>
+                    </div>
+            </div>
+            <div class="col-md-6">
+                <iframe class="spotify" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4GT3T9xdCgKidNmPAY5RgQ?utm_source=generator&theme=0" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center m-2">
+                <div class="container-fluid col-md-11 bg-dark rounded py-2">
+                    <br>
+                    <h3 class="text-light">How old is it ?</h3>
+                    <br>
                     <canvas id="year"></canvas>
                 </div>
-            </div>
         </div>
-        <br>
     </section>
 
     <template id="trackCard">
-        <div class="card mb-3 bg-dark text-light" id="card">
-            <div class="row g-0">
-                <div class="col-md-4 d-flex justify-content-center align-items-center">
-                    <img class="img-fluid rounded-start card-img-top" alt="album-display">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title bg-dark text-light"></h5>
-                        <ul class="list-group list-group-flush ">
-                            <li class="list-group-item artist bg-dark text-light"></li>
-                            <li class="list-group-item album bg-dark text-light"></li>
-                            <li class="list-group-item tps bg-dark text-light"></li>
-                            <li class="list-group-item genre bg-dark text-light"></li>
-                        </ul>
-                    </div>
+        <div class="col-md-1 m-2">
+            <div class="card bg-dark text-light" id="card">
+                <div class="card-body">
+                    <img class="card-img-top" alt="album-display">
                 </div>
             </div>
         </div>
     </template>
+
     <template id="info">
-        <div class="card mb-3 d-flex bg-dark text-light" id="info">
-            <div class="row g-0">
-                <br><br>
-                <audio class="music" controls></audio>
+            <div class="row justify-content-center">
+                <div class="col-md-1">
+                    <img id="cover" class="cover img-fluid">
+                </div>
+                <div class="col-md-4"> 
+                    <h5 class="card-title bg-dark text-light"></h5>
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item artist bg-dark text-light"></li>
+                        <li class="list-group-item album bg-dark text-light"></li>
+                        <li class="list-group-item genre bg-dark text-light"></li>
+                        <br>
+                        <li><audio class="music" controls></audio></li> 
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <b>
+                    <h7 class="other card-title bg-dark text-light">Also in this album:</h7></b>
+                    <h8 class="otherTracks bg-dark text-light"></h8>
+                    <br><br>
+                </div>
             </div>
-            <div class="row g-0">
-                <h5 class="other card-title">Also in this album:</h5>
-                <h7 class="otherTracks"></h7>
-                <br><br>
-            </div>
-        </div>
     </template>       
 
 <footer class="footer">
     <div class="container text-center">
-        <h7>&copy; R2.13 Integration, Création d'un site web à partir d'un jeu de donnée 2024. All Rights Reserved. Fernnadez Léna.</h7>
+        <h7>&copy; R2.12 Integration, Création d'un site web à partir d'un jeu de donnée 2024. All Rights Reserved. Fernnadez Léna.</h7>
     </div>
 </footer>
 <script src="script.js"></script>
